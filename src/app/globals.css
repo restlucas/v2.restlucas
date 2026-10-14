@@ -170,6 +170,16 @@ body {
   transition: background-color 0.3s;
 }
 
+/* Mobile: text flows around the head. avatar-shape.png is a solid silhouette at the
+   display size, since shape-outside uses the image at its own pixel size. */
+.avatar-wrap {
+  float: right;
+  width: 131.5px;
+  shape-outside: url("/avatar-shape.png");
+  shape-image-threshold: 0.5;
+  shape-margin: 0.75rem;
+}
+
 .avatar-float {
   animation: float 6s ease-in-out infinite;
 }

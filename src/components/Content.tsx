@@ -9,20 +9,24 @@ export function About() {
   const { t } = useLanguage();
   return (
     <Section id="about">
-      <div className="flex flex-col gap-8 md:grid md:grid-cols-[1fr_auto] md:items-start md:gap-10">
-        {/* Rendered at 1/4 and 1/2 of the file size so each 2px dot lands on whole device pixels. */}
-        <div
-          role="img"
-          aria-label={t.about.avatarAlt}
-          className="avatar avatar-float w-[131.5px] md:order-last md:w-[263px]"
-        />
+      {/* Avatar sizes are 1/4 and 1/2 of the file so each 2px dot lands on whole device pixels. */}
+      <div className="md:grid md:grid-cols-[1fr_auto] md:items-start md:gap-10">
         <div className="space-y-4 leading-relaxed text-dim">
           {t.about.paragraphs.map((p, i) => (
             <p key={i} className={i === 0 ? "text-ink" : undefined}>
+              {/* Mobile: floats inside the text, which wraps around the head's outline. */}
+              {i === 1 && (
+                <span role="img" aria-label={t.about.avatarAlt} className="avatar avatar-wrap avatar-float md:hidden" />
+              )}
               <Rich text={p} />
             </p>
           ))}
         </div>
+        <div
+          role="img"
+          aria-label={t.about.avatarAlt}
+          className="avatar avatar-float hidden w-[263px] md:block"
+        />
       </div>
       <dl className="mt-8 space-y-2 text-[0.88rem]">
         {t.about.facts.map((f) => (
