@@ -3,6 +3,8 @@
 import { locales, sectionIds, type SectionId } from "@/i18n/dictionaries";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { useEffect, useRef, useState } from "react";
+import { Mascot, SpriteSvg, useMascotChoice } from "./Mascot";
+import { MASCOTS } from "./mascots";
 
 const ACCENTS = ["#8AAEE8", "#7EE0A1", "#F2C46D", "#C3A6FF", "#FF8FA3"];
 const ACCENT_KEY = "accent";
@@ -17,6 +19,7 @@ export function StatusBar() {
   const [progress, setProgress] = useState(0);
   const [time, setTime] = useState("");
   const accentIndex = useRef(0);
+  const [mascot, cycleMascot] = useMascotChoice();
 
   // Restore saved accent.
   useEffect(() => {
@@ -92,9 +95,11 @@ export function StatusBar() {
   };
 
   const filled = Math.round(progress / 10);
+  const mascotLabel = `${t.statusBar.mascot}: ${mascot === "off" ? t.statusBar.mascotOff : (mascot ?? "")}`;
 
   return (
     <div className="statusbar">
+      {mascot && mascot !== "off" && <Mascot key={mascot} kind={mascot} />}
       <div className="flex min-w-0 items-center gap-3">
         <span className="hidden text-dim sm:inline">[lucas@restlucas]</span>
         <a href={`#${active}`} className="truncate font-medium text-ink">
@@ -125,6 +130,19 @@ export function StatusBar() {
           title={t.statusBar.theme}
         >
           ◐
+        </button>
+
+        <button
+          type="button"
+          onClick={cycleMascot}
+          className={`mascot-btn h-[18px] w-5 items-end justify-center ${mascot === "off" ? "is-off" : ""}`}
+          aria-label={mascotLabel}
+          title={mascotLabel}
+        >
+          {/* Same size while the saved choice loads, so the bar doesn't shift. */}
+          <span className={mascot ? undefined : "invisible"}>
+            <SpriteSvg rows={MASCOTS[mascot && mascot !== "off" ? mascot : "cat"].rest} cell={1.25} />
+          </span>
         </button>
 
         <span className="hidden text-accent md:inline" aria-hidden="true">

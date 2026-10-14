@@ -42,7 +42,7 @@ export type Dictionary = {
     rows: { key: string; value: string; href?: string }[];
   };
   footer: string;
-  statusBar: { language: string; theme: string };
+  statusBar: { language: string; theme: string; mascot: string; mascotOff: string };
 };
 
 export type SectionId =
@@ -255,7 +255,7 @@ const en: Dictionary = {
     ],
   },
   footer: "lucas souza · built with next.js, typescript & tailwind css",
-  statusBar: { language: "language", theme: "change accent color" },
+  statusBar: { language: "language", theme: "change accent color", mascot: "switch mascot", mascotOff: "off" },
 };
 
 const pt: Dictionary = {
@@ -414,7 +414,7 @@ const pt: Dictionary = {
     ],
   },
   footer: "lucas souza · feito com next.js, typescript & tailwind css",
-  statusBar: { language: "idioma", theme: "trocar cor de destaque" },
+  statusBar: { language: "idioma", theme: "trocar cor de destaque", mascot: "trocar mascote", mascotOff: "desligado" },
 };
 
 export const dictionaries: Record<Locale, Dictionary> = { en, pt };
